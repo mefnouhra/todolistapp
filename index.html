@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+    <link href='styles/main.css' rel='stylesheet' type="text/css">
+</head>
+
+<body ng-app="todoListApp">
+
+    
+   <div class="list" ng-controller="mainCtrl">
+     <h1>My To-Do List</h1>
+        <div class="add"><a href="#" ng-click="addTodo()">+ Add To Do</a></div>
+        <!-- Repeat through existing todos array -->
+        <div ng-class="{'editing-label': editing, 'edited': todo.edited, 'completed': todo.completed}" ng-repeat="todo in todos | orderBy: 'completed'" ng-init="todo.completed = false" class="item">
+            <input ng-model="todo.completed" type="checkbox" />
+            <span></span>
+            <!-- Hide label if editing === true -->
+            <label ng-hide="editing" ng-click="editing = !editing" class="editing-label">{{todo.name}}</label>
+            <!-- Show input if editing === true -->
+            <!-- Set editing === false if focus is off input -->
+            <input ng-change="todo.edited = true" ng-blur="editing = false" ng-show="editing" ng-model="todo.name" type="text" />
+            <div class="actions">
+                <!-- on click, 'editing' prop should equal whatever it doesn't already equal -->
+                <button href="#" ng-click="editing = !editing">edit</button>
+                <button href="#" ng-click="saveTodo(todo)">save</button>
+                <button href="#" class="delete" ng-click="deleteTodo(todo)">delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!--SCRIPTS-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="scripts/app.js" type="text/javascript"></script>
+    <script src="scripts/controllers/main.js" type="text/javascript"></script>
+    <script src="scripts/services/data.js" type="text/javascript"></script>
+    <script src="scripts/directives/todos.js" type="text/javascript"></script>
+    <!--END SCRIPTS-->
+</body>
+
+</html>
